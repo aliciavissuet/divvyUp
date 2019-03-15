@@ -1,5 +1,8 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
+export var time = 0;
+
+
 
 class MapOverlay extends parent {
     constructor(bounds, image, map, data) {
@@ -9,16 +12,25 @@ class MapOverlay extends parent {
         // this.image_ = image;
         this.map_ = map;
         this.div_ = null;
-        this.time = 29000;
+        this.time = 32000;
         this.setMap(map);
-
-        // this.onAdd = this.onAdd.bind(this);
-        // this.draw = this.draw.bind(this);
+        // window.setInterval(() => {
+        //     time += 20;
+        //     // console.log(time);
+        //     // console.log(this)
+        //     // this.onAdd();
+        // }, 1000); 
     }
-
+    
+    increaseTime(){
+        
+       
+    }
     onAdd() {
         // debugger;
         // var div = document.select('div');
+        
+        // console.log('a', time);
         var div = document.getElementById('map-overlay');
         div.style.borderStyle = 'none';
         div.style.borderWidth = '0px';
@@ -34,15 +46,21 @@ class MapOverlay extends parent {
             //new 
         // const layer = d3.select(this.getPanes().overlayLayer).append("div")
         //     .attr();
-        this.draw();    
+        // window.setInterval(() => {
+        //     time += 100;
+        //     // console.log(time);
+        //     // console.log(this)
+        //     this.draw();
+        // }, 100);     
         window.google.maps.event.addListener(this.map_, 'center_changed', () => {
-            this.draw(this.time);
+            this.draw();
         });
+       
     }
 
-    draw(time) {
+    draw() {
         
-        // console.log(this.data);
+        // console.log('t', time);
         // get current bounds, mask that junk yo
         let overlayProjection = this.getProjection(), padding = 10;
         let bounds = this.map_.getBounds();
@@ -88,7 +106,7 @@ class MapOverlay extends parent {
         //     .attr('z-index', "10000000000000")
         //     .text(function (d) { return 'X'});
         function transform(d) {
-            const { display, lat, lon} = position(d, 30000);
+            const { display, lat, lon} = position(d, time);
             if (!display || !lat || !lon) {
                 return d3.select(this)
                     .style('display', 'none')
@@ -100,7 +118,9 @@ class MapOverlay extends parent {
 
             return d3.select(this)
                 .style("left", (d.x - padding) + "px")
-                .style("top", (d.y - padding) + "px");
+                .style("top", (d.y - padding) + "px")
+                .style('display', 'block')
+
         }
 
         function position(d, currTime) {

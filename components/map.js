@@ -1,5 +1,7 @@
 import Overlay from './overlay';
 import * as d3 from 'd3';
+import {time} from './overlay';
+console.log(time, 'map');
 
 
 console.log('alicia');
@@ -14,6 +16,8 @@ const initMap = () => {
     const bounds = map.getBounds();
     console.log(bounds);
     const data = d3.csv('../d.csv').then((data) =>  new Overlay(bounds, null, map, data));
+    
+    
     // const overlay = new Overlay(bounds, null, map, data);
     // overlay.onAdd();
 };
