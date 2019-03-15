@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
-export var time = 20000;
-export var speed = 100;
+export var time = 0;
+export var speed = 10;
 export var prevSpeed = null;
 
 
@@ -24,6 +24,8 @@ class MapOverlay extends parent {
         document.getElementById('play').addEventListener('click', () => this.play());
         document.getElementById('pause').addEventListener('click', () => this.pause());
         document.getElementById('reset').addEventListener('click', () => this.reset());
+        document.getElementById('speed').addEventListener('change', (e) => this.setSpeed(e.target.value));
+        document.getElementById('time').addEventListener('change', (e) => this.setTime(e.target.value));
          
         // window.setInterval(() => {
         //     time += 20;
@@ -32,6 +34,7 @@ class MapOverlay extends parent {
         //     // this.onAdd();
         // }, 1000); 
     }
+
     
     increaseTime (func){
         window.setInterval(() => {
@@ -51,10 +54,17 @@ class MapOverlay extends parent {
     }
     reset(){
         time = 0;
-        speed = 50;
+        speed = 5;
         this.increaseTime(this.draw);
     }
-    
+    setSpeed(value) {
+        // console.log(parseInt(value));
+        speed = parseInt(value);
+    }
+    setTime(value) {
+        time = parseInt(value);
+        console.log('tv', time, speed)
+    }
 
     onAdd() {
         // debugger;
