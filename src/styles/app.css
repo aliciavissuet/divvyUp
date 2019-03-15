@@ -38,6 +38,85 @@ body {
     width: 100%; */
 
 }
+#play {
+  background: violet;
+  color: white;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  outline: none;
+
+}
+#pause {
+  background: violet;
+  color: white;
+  position: absolute;
+  right: 50px;
+  cursor: pointer;
+  outline: none;
+}
+#reset {
+  background: violet;
+  color: white;
+  position: absolute;
+  right: 50px;
+  top: 50px;
+  cursor: pointer;
+  outline: none;
+}
+
+body {
+  background: #fff;
+}
+
+/* svg{
+	stroke: #000;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+} */
+
+#rim {
+  fill: none;
+  stroke: #999;
+  stroke-width: 3px;
+}
+
+.second-hand{
+	stroke-width:3;
+
+}
+
+.minute-hand{
+	stroke-width:8;
+	stroke-linecap:round;
+}
+
+.hour-hand{
+	stroke-width:12;
+	stroke-linecap:round;
+}
+
+.hands-cover{
+	stroke-width:3;
+	fill:#fff;
+}
+
+.second-tick{
+	stroke-width:3;
+	fill:#000;	
+}
+
+.hour-tick{
+	stroke-width:8; //same as the miute hand
+}
+
+.second-label{
+	font-size: 12px;
+}
+
+.hour-label{
+	font-size: 24px;
+}
+
 /* .stations, .stations svg {
   position: absolute;
 } */

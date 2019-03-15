@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
-export var time = 0;
+export var time = 20000;
+export var speed = 100;
+export var prevSpeed = null;
 
 
 
@@ -14,6 +16,15 @@ class MapOverlay extends parent {
         this.div_ = null;
         this.time = 32000;
         this.setMap(map);
+        this.increaseTime = this.increaseTime.bind(this);
+        this.draw = this.draw.bind(this);
+        window.reset = this.reset;
+        window.pause = this.pause;
+        window.play = this.play;
+        document.getElementById('play').addEventListener('click', () => this.play());
+        document.getElementById('pause').addEventListener('click', () => this.pause());
+        document.getElementById('reset').addEventListener('click', () => this.reset());
+         
         // window.setInterval(() => {
         //     time += 20;
         //     // console.log(time);
@@ -22,10 +33,29 @@ class MapOverlay extends parent {
         // }, 1000); 
     }
     
-    increaseTime(){
-        
+    increaseTime (func){
+        window.setInterval(() => {
+            time += speed;
+            func();
+        }, 100); 
        
     }
+
+    pause() {
+        console.log('pause');
+        prevSpeed = speed;
+        speed=0;
+    }
+    play(){
+        speed = prevSpeed;
+    }
+    reset(){
+        time = 0;
+        speed = 50;
+        this.increaseTime(this.draw);
+    }
+    
+
     onAdd() {
         // debugger;
         // var div = document.select('div');
@@ -47,11 +77,12 @@ class MapOverlay extends parent {
         // const layer = d3.select(this.getPanes().overlayLayer).append("div")
         //     .attr();
         // window.setInterval(() => {
-        //     time += 100;
+        //     time += 50;
         //     // console.log(time);
         //     // console.log(this)
         //     this.draw();
         // }, 100);     
+        this.increaseTime(this.draw);
         window.google.maps.event.addListener(this.map_, 'center_changed', () => {
             this.draw();
         });
