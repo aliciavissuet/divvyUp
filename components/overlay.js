@@ -1,11 +1,14 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
-export var time = 24000;
+export var time = 20000;
 export var speed = 100;
 export var prevSpeed = null;
 var female = false;
 var male = false;
-
+var goingDT = false;
+var leavingDT = false;
+const c = console.log;
+const velocity = .8
 
 class MapOverlay extends parent {
     constructor(bounds, image, map, data, directionsService) {
@@ -41,6 +44,10 @@ class MapOverlay extends parent {
         document.getElementById('male').addEventListener('mouseover', ()=> this.displayMale());
         document.getElementById('fem').addEventListener('mouseleave', ()=> this.displayAll());
         document.getElementById('male').addEventListener('mouseleave', ()=> this.displayAll());
+        document.getElementById('going').addEventListener('mouseover', ()=> this.displayGoingDT());
+        document.getElementById('leaving').addEventListener('mouseover', ()=> this.displayLeavingDT());
+        document.getElementById('going').addEventListener('mouseleave', ()=> this.displayAll());
+        document.getElementById('leaving').addEventListener('mouseleave', ()=> this.displayAll());
     }
     
 
@@ -118,14 +125,7 @@ class MapOverlay extends parent {
             .attr("class", "marker")
             .style('position', 'absolute')
 
-            // .style('background', (d.value.gender ? 'blue' : 'yellow'));
-            
-            // .style('z-index', 700000000000);
 
-        // marker.append("circle")
-        //     .attr("r", 4.5)
-        //     .attr("cx", padding)
-        //     .attr("cy", padding)
 
         // Add a label.
         // marker.append("text")
@@ -137,8 +137,10 @@ class MapOverlay extends parent {
         function transform(d) {
             const style = (d.value.gender === 'Male') ? '#2e60cc' : '#b3cbe5';
             const { display, lat, lon} =  position(d, time);
-  
-            if (!display || !lat || !lon || (d.value.gender === 'Male' && female) || (d.value.gender === 'Female' && male)) {
+            const genderCondition = (d.value.gender === 'Male' && female) || (d.value.gender === 'Female' && male);
+            const downtownCondition = ((!isGoingDT(d) && goingDT) || (!isLeavingDT(d) && leavingDT));
+            // c(isGoingDT(d));
+            if (!display || !lat || !lon || genderCondition || downtownCondition) {
                 return d3.select(this)
                     .style('display', 'none');
             }
@@ -161,8 +163,11 @@ class MapOverlay extends parent {
         function position(d, currTime) {
             const p = parseFloat;
             const startTime = p(d.value.startTimeSeconds);
-            const stopTime = p(d.value.startTimeSeconds) + 1200;
+            const stopTime = p(d.value.startTimeSeconds) + p(d.value.distanceCovered)*speed;
             // const timeDelta = p(d.value.timeDelta);
+
+            // genderCondition = d.value.gender === 'male' || !females
+
             if ( startTime > currTime || stopTime < currTime ) {
 
                 return {
@@ -183,30 +188,6 @@ class MapOverlay extends parent {
                 };
             }
             return pos;
-            // const startLat = p(d.value.latitude_start);
-            // const startLon = p(d.value.longitude_start);
-            // const endLat = p(d.value.latitude_end);
-            // const endLon = p(d.value.longitude_end);
-            // const steps  = d.value.steps;
-            // const totalStepsDistance = d.value.stepsDistance;
-            // const numSteps = steps.length;
-            // const currStep = 
-            // const pointI = (currTime - startTime)/numPoints;
-            // const lowPoint = points[Math.floor(pointI)];
-            // const highPoint = points[Math.ceil(pointI)];
-            // const pointTimeDelta = timeDelta/numPoints;
-            
-
-
-            // const currLat = ((currTime - startTime)*(endLat - startLat)/(timeDelta )+ startLat)
-            // const currLon = ((currTime - startTime)*(endLon - startLon)/(timeDelta) + startLon)
-            
-
-            // return {
-            //     lat: Number(currLat),
-            //     lon: Number(currLon),
-            //     display: true
-            // };
 
         }
         
@@ -220,6 +201,16 @@ class MapOverlay extends parent {
     displayAll() {
         female = false;
         male = false;
+        goingDT = false;
+        leavingDT = false;
+    }
+    displayGoingDT(){
+        
+        goingDT = true;
+    }
+    displayLeavingDT(){
+ 
+        leavingDT = true;
     }
 
 }
@@ -232,12 +223,13 @@ const current_location = (steps, time) => {
     let distanceCovered = 0;
     while(true){
         distanceCovered += steps[i].distance;
-        if (time/2 < distanceCovered){
+        if (time / velocity < distanceCovered){
             break;
         }
         i++;
     }
-    const timeInInterval = distanceCovered * 2 - steps[i].distance * 2;
+
+    const timeInInterval = distanceCovered * velocity - steps[i].distance * velocity;
     const t = time - timeInInterval;
 
     const startLat = p(steps[i].start_location.lat);
@@ -246,8 +238,8 @@ const current_location = (steps, time) => {
     const endLat = p(steps[i].end_location.lat)
     const endLon = p(steps[i].end_location.lng)
 
-    const currLat = ((t) * (endLat - startLat) / (steps[i].distance * 2 )+ startLat)
-    const currLon = ((t)*(endLon - startLon)/(steps[i].distance*2) + startLon)
+    const currLat = ((t) * (endLat - startLat) / (steps[i].distance * velocity )+ startLat)
+    const currLon = ((t) * (endLon - startLon) / (steps[i].distance * velocity) + startLon)
 
     return {
         lat: Number(currLat),
@@ -255,4 +247,22 @@ const current_location = (steps, time) => {
         display: true
     };
 
+};
+
+const endDT = (d) => {
+    // c(d.value.latitude_end < 41.889034, d.value.latitude_end)
+    return ((41.863426 < parseFloat(d.value.latitude_end) && parseFloat(d.value.latitude_end) < 41.889034 && 
+        - 87.604406 > parseFloat(d.value.longitude_end) && parseFloat(d.value.longitude_end)> -87.637359));
+};
+const startDT = (d) => {
+    // c(d.value.latitude_start < 41.889034, d.value.latitude_start)
+    return (41.863426 < parseFloat(d.value.latitude_start) && parseFloat(d.value.latitude_start )< 41.889034 
+        && - 87.604406 > parseFloat(d.value.longitude_start) && parseFloat(d.value.longitude_start) > -87.637359);
+};
+
+const isGoingDT= (d) => {
+    return endDT(d) && !startDT(d);
+};
+const isLeavingDT = (d) => {
+    return !endDT(d) && startDT(d);
 };

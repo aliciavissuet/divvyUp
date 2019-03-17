@@ -65,18 +65,18 @@ const styles = {
         {
             featureType: 'road',
             elementType: 'geometry.stroke',
-            stylers: [{ color: '#32373d' }, {weight: '0.6px'}]
+            stylers: [{ color: '#32373d' }, {weight: '0.9px'}]
         },
 
         {
             featureType: 'road.highway',
             elementType: 'geometry',
-            stylers: [{ color: '#040404' }, {lightness: '0'}]
+            stylers: [{ color: '#040404' }, {lightness: '2'}]
         },
         {
             featureType: 'road.highway',
             elementType: 'geometry.stroke',
-            stylers: [{ color: '#040404' }]
+            stylers: [{ color: '#040404' }, { weight: '0.9px' }]
         },
 
         {

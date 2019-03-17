@@ -1,22 +1,42 @@
-// import * as d3 from 'd3';
-// import {time} from '../components/overlay';
+import * as d3 from 'd3';
+import {time} from '../components/overlay';
 
 
-// let t = time;
+let t = time;
 
-// const getTime = () => {
-//     t = time;
-// };
+const getTime = () => {
+    t = time;
+};
 
-// const drawGender = () => {
-//     const female = d3.select('#female')
-//         .data(d3.csv('../DivvyDataWithSteps.csv'));
-//     const male = d3.select('#male');
-// };
+const data = d3.csv('../minutesData.csv')
 
-// document.addEventListener("DOMContentLoaded", () => {
+
+const drawGender = (data) => {
+
+    // debugger;
+    const min = Math.floor(time/60);
+
+    d3.select('#genderdisplay').style('display','flex')
+
+    const female = d3.select('#fem')
+    .style('width', `${parseFloat((data[min].femaleCount)) / (parseFloat(data[min].femaleCount) + parseFloat(data[min].maleCount)) *100}px`)
+        .style('background', '#48c3e7');
+
+
+    const male  = d3.select('#male')
+        .style('width', `${parseFloat((data[min].maleCount)) / (parseFloat(data[min].femaleCount) + parseFloat(data[min].maleCount)) * 100}px`)
+        .style('background', '#569dee')
+        .style('text-align', 'right')
+
+
+
+};
+
+
+document.addEventListener("DOMContentLoaded", () => {
     
-//     setInterval(function () {
-//         getTime();
-//     }, 100);
-// });
+    setInterval(function () {
+        getTime();
+        data.then( data =>drawGender(data));
+    }, 1000);
+});

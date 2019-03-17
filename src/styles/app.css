@@ -73,7 +73,7 @@ body {
     height: 70%;
     width: 70%;
     position: absolute;
-    top: 20%;
+    top: 15%;
 }
 #map-overlay {
     height: 100%;
@@ -114,14 +114,14 @@ body {
   display: block;
   position: absolute;
   left: 7%;
-  top: 20.5%;
+  top: 17%;
   width: 54%;
 
 }
 #digitaltime {
   position: absolute;
-  right: 28%;
-  top: 32%;
+  right: 29%;
+  top: 26%;
   color: white;
   font-family: sans-serif;
   font-size: 20px;
@@ -148,8 +148,8 @@ span {
   /* height: 300px; */
   /* width: 300px; */
   position: absolute;
-  top: 20%;
-  right: 28%;
+  top: 15%;
+  right: 29%;
   /* background: transparent; */
   /* border: 1px solid yellow; */
 }
@@ -210,7 +210,7 @@ input[type=range]:focus {
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 70%;
-  height: 2px;
+  height: 5px;
   cursor: pointer;
   /* animate: 0.2s; */
   box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
@@ -221,9 +221,9 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]::-webkit-slider-thumb {
   box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
   border: 0px solid #000000;
-  height: 8px;
+  height: 12px;
   width: 14px;
-  border-radius: 8px;
+  border-radius: 4px;
   background: #2e60cc;
   cursor: pointer;
   -webkit-appearance: none;
@@ -235,7 +235,7 @@ input[type=range]::-webkit-slider-thumb {
   align-items: center;
   position: absolute;
   left: 75%;
-  top: 20%;
+  top: 15%;
   width: 20%;
   border: 2px solid #2e60cc;
 }
@@ -245,26 +245,52 @@ input[type=range]::-webkit-slider-thumb {
   align-items: center;
   position: absolute;
   left: 75%;
-  top: 35%;
+  top: 30%;
   width: 20%;
-  height: 55%;
+  height: 20%;
   border: 2px solid #2e60cc;
 };
 .genderdisplay {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100px;
   margin: 10px;
   border: 1px solid #2e60cc;
-  background: pink;
+  /* background: pink; */
+}
+#genderdisplay {
+  display: flex;
+  flex-direction: column;
 }
 #fem {
   /* margin: 10px; */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
   padding-left: 10px;
   padding-right: 10px;
+  margin: 0px;
   cursor: pointer;
+  height:20px;
 }
 #male {
   /* margin: 10px; */
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
   padding-left: 10px;
   padding-right: 10px;
+  margin: 0px;
   cursor: pointer;
+  height: 20px;
+  text-align: right;
+}
+#genderlabels {
+  display: flex;
+  flex-direction: row;
+  
+}
+.male-span {
+  margin-left: 40%;
+}
+.female-span {
+  margin-right: 20%;
 }
