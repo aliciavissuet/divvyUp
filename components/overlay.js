@@ -3,7 +3,8 @@ const parent = google.maps.OverlayView;
 export var time = 24000;
 export var speed = 100;
 export var prevSpeed = null;
-
+var female = false;
+var male = false;
 
 
 class MapOverlay extends parent {
@@ -15,6 +16,15 @@ class MapOverlay extends parent {
         this.map_ = map;
         this.directionsService = directionsService;
         this.div_ = null;
+
+       
+        // this.data.forEach(d => {
+        //     try {
+        //         d.value.stepsJson = JSON.parse(d.value.stepsJson);
+        //     } catch(e) {
+
+        //     }
+        // });
         // this.time = 32000;
         this.setMap(map);
         this.increaseTime = this.increaseTime.bind(this);
@@ -27,16 +37,13 @@ class MapOverlay extends parent {
         document.getElementById('reset').addEventListener('click', () => this.reset());
         document.getElementById('speed').addEventListener('change', (e) => this.setSpeed(e.target.value));
         document.getElementById('time').addEventListener('change', (e) => {this.setTime(e.target.value);});
-         
-        // window.setInterval(() => {
-        //     time += 20;
-        //     // console.log(time);
-        //     // console.log(this)
-        //     // this.onAdd();
-        // }, 1000); 
+        document.getElementById('fem').addEventListener('mouseover', ()=> this.displayFemale());
+        document.getElementById('male').addEventListener('mouseover', ()=> this.displayMale());
+        document.getElementById('fem').addEventListener('mouseleave', ()=> this.displayAll());
+        document.getElementById('male').addEventListener('mouseleave', ()=> this.displayAll());
     }
-
     
+
     increaseTime (func){
         window.setInterval(() => {
             time += speed;
@@ -67,33 +74,15 @@ class MapOverlay extends parent {
         console.log('tv', time, speed);
     }
 
+
     onAdd() {
-        // debugger;
-        // var div = document.select('div');
-        
-        // console.log('a', time);
-       
         var div = document.getElementById('map-overlay');
         div.style.borderStyle = 'none';
         div.style.borderWidth = '0px';
         div.style.position = 'absolute';
-        // div.style.backgroundColor = 'gray';
         this.div_ = div;
         const panes = this.getPanes();
-        panes.overlayLayer.appendChild(div);
-
-        // add a listener to re-mask the new bounds on each map drag
-       
-
-            //new 
-        // const layer = d3.select(this.getPanes().overlayLayer).append("div")
-        //     .attr();
-        // window.setInterval(() => {
-        //     time += 50;
-        //     // console.log(time);
-        //     // console.log(this)
-        //     this.draw();
-        // }, 100);     
+        panes.overlayLayer.appendChild(div);   
         this.increaseTime(this.draw);
         window.google.maps.event.addListener(this.map_, 'center_changed', () => {
             this.draw();
@@ -102,9 +91,6 @@ class MapOverlay extends parent {
     }
 
     draw() {
-        
-        // console.log('t', time);
-        // get current bounds, mask that junk yo
         let overlayProjection = this.getProjection(), padding = 10;
         let bounds = this.map_.getBounds();
         let bounds2 = new google.maps.LatLngBounds(
@@ -115,32 +101,18 @@ class MapOverlay extends parent {
         const ds = this.directionsService;
 
         this.bounds_ = bounds;
-        // console.log('bounds', bounds.getSouthWest());
         var div = this.div_;
         
         div.style.left = sw.x + 'px';
         div.style.top = ne.y +'px';
         div.style.width = (ne.x - sw.x) + 'px';
         div.style.height = (sw.y - ne.y) + 'px';
-        
-        // var projection = this.getProjection(),
-            // const padding = 10;
-        // const layer = d3.select('id', 'map-overlay');
-            
-        //     .attr("class", "stations");
-        const layer = d3.select(this.getPanes().overlayLayer);
 
-        // const marker = layer.selectAll("svg")
-        //     .data(d3.entries(this.data))
-        //     .each(transform) // update existing markers
-        //     .enter().append("svg")
-        //     .each(transform)
-        //     .attr("class", "marker")
-        //     .style('position', 'absolute')
+        const layer = d3.select(this.getPanes().overlayLayer);
 
         const marker = layer.selectAll("svg")
             .data(d3.entries(this.data))
-            .each(transform) // update existing markers
+            .each(transform) 
             .enter().append("svg")
             .each(transform)
             .attr("class", "marker")
@@ -163,19 +135,15 @@ class MapOverlay extends parent {
         //     .append('text')
             
         function transform(d) {
-            //console.log('transform', d)
             const style = (d.value.gender === 'Male') ? '#2e60cc' : '#b3cbe5';
-            
-            
             const { display, lat, lon} =  position(d, time);
   
-            if (!display || !lat || !lon) {
+            if (!display || !lat || !lon || (d.value.gender === 'Male' && female) || (d.value.gender === 'Female' && male)) {
                 return d3.select(this)
-                    .style('display', 'none')
+                    .style('display', 'none');
             }
 
             d = new google.maps.LatLng(lat, lon);
-
             d = overlayProjection.fromLatLngToDivPixel(d);
 
             return d3.select(this)
@@ -190,55 +158,31 @@ class MapOverlay extends parent {
 
         }
 
-
-
-
-        // function calculateRoute (startLat, startLon, endLat, endLon, d) {
-           
-        //     const dsr =  ds.route({
-        //         origin: new google.maps.LatLng(startLat, startLon),
-        //         destination: new google.maps.LatLng(endLat, endLon),
-        //         travelMode: 'BICYCLING'
-        //     }, function (response, status) {
-        //         if (status === 'OK') {
-        //            console.log( response.routes[0].overview_path);
-        //            return 'dsr' 
-        //         } 
-        //         return 'else'
-        //     });
-        //     console.log('dsr', dsr)
-            
-        // }
-
         function position(d, currTime) {
-            //console.log(d)
             const p = parseFloat;
             const startTime = p(d.value.startTimeSeconds);
             const stopTime = p(d.value.startTimeSeconds) + 1200;
             // const timeDelta = p(d.value.timeDelta);
             if ( startTime > currTime || stopTime < currTime ) {
-                // console.log(d.value);
+
                 return {
                     lat: null,
                     lon: null,
                     display:false,
                 };
             } 
-    
             let pos;
             try{
                  pos = current_location(JSON.parse(d.value.stepsJson), currTime-startTime);
-
             } catch(e) {
-
+                // console.log(e);
                 pos = {
                     lat: null,
                     lon: null,
                     display: false,
                 };
             }
-
-            return pos
+            return pos;
             // const startLat = p(d.value.latitude_start);
             // const startLon = p(d.value.longitude_start);
             // const endLat = p(d.value.latitude_end);
@@ -265,7 +209,19 @@ class MapOverlay extends parent {
             // };
 
         }
+        
     }
+    displayFemale() {
+        female = true;
+    }
+    displayMale() {
+        male = true;
+    }
+    displayAll() {
+        female = false;
+        male = false;
+    }
+
 }
 export default MapOverlay;
 
@@ -300,10 +256,3 @@ const current_location = (steps, time) => {
     };
 
 };
-// // Draw each marker as a separate SVG element.
-// // We could use a single SVG, but what size would it have?
-// overlay.draw = function () {
-    
-
-    // Add a circle.
-    

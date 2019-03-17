@@ -5,7 +5,6 @@ let slider = null;
 let speedSlider = null;
 let t = time;
 function displayTime() {
-    // let t = getTime();
     let hours = Math.floor(t / 3600);
     let minutes = Math.floor((t - (hours * 3600)) / 60);
     let seconds = t - (hours * 3600) - (minutes * 60);
@@ -23,18 +22,12 @@ function digitalTime() {
 }
 function inputTime() {
     slider.value = time;
-    // console.log(t);
-    // debugger;
-    // d3.select('#time')
-    //     .attr('value', time);
-
 }
 function getTime() {
     t = time;
 }
 document.addEventListener("DOMContentLoaded", () => {
     console.log('listening to time');
-    // drawClock();
     slider = document.querySelector('#time');
     speedSlider = document.querySelector('#speed');
     speedSlider.value = speed;

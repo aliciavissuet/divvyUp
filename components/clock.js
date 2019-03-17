@@ -46,11 +46,11 @@ const handData = [
 ];
 
 function updateData() {
-    console.log(time);
+    // console.log(time);
     var t = new Date(time * 1000);
     handData[0].value = (t.getHours() % 12 - 4) + t.getMinutes() / 60;
     handData[1].value = t.getMinutes();
-    console.log('h', handData[0]);
+    // console.log('h', handData[0]);
     // handData[2].value = t.getSeconds();
 }
 
