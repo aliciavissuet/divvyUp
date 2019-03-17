@@ -12,15 +12,15 @@ body {
 } */
 .marker {
     /* color: pink; */
-    background: yellow;
-    height: 2px;
-    width:2px;
+    background: azure;
+    height: 4px;
+    width:4px;
     border-radius: 50%;
     
 }
-/* circle {
+circle {
   color: yellow;
-} */
+}
 #map {
     height: 70%;
     width: 70%;
@@ -70,9 +70,11 @@ body {
   top: 50px;
 }
 #time {
+  display: block;
   position: absolute;
   left: 50px;
   top: 100px;
+  width: 40vw;
 }
 #digitaltime {
   position: absolute;

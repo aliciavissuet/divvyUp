@@ -1,7 +1,7 @@
 import {time} from './overlay';
 import * as d3 from 'd3';
 
-
+let slider = null;
 let t = time;
 function displayTime() {
     // let t = getTime();
@@ -21,9 +21,12 @@ function digitalTime() {
     .text(displayTime());
 }
 function inputTime() {
-    console.log(t);
-    d3.select('#time')
-        .attr('value', t);
+    slider.value = time;
+    // console.log(t);
+    // debugger;
+    // d3.select('#time')
+    //     .attr('value', time);
+
 }
 function getTime() {
     t = time;
@@ -31,6 +34,7 @@ function getTime() {
 document.addEventListener("DOMContentLoaded", () => {
     console.log('listening to time');
     // drawClock();
+    slider = document.querySelector('#time');
     setInterval(function () {
         getTime(); 
         digitalTime();

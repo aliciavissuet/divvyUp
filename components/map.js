@@ -7,15 +7,18 @@ console.log(time, 'map');
 console.log('alicia');
 const initMap = () => {
     let map;
+    let directionsService;
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 41.8781, lng: -87.6428 },
         zoom: 13,
         styles: styles['hide'],
         disableDefaultUI: true
     });
+    directionsService = new google.maps.DirectionsService;
+
     const bounds = map.getBounds();
     console.log(bounds);
-    const data = d3.csv('../d.csv').then((data) =>  new Overlay(bounds, null, map, data));
+    const data = d3.csv('../DivvyDataWithSteps.csv').then((data) =>  new Overlay(bounds, null, map, data, directionsService));
     
     
     // const overlay = new Overlay(bounds, null, map, data);
