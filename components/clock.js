@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import {time} from './overlay';
 let radians = 0.0174532925,
-    clockRadius = 100,
-    margin = 50,
+    clockRadius = 40,
+    margin = 20,
     width = (clockRadius + margin) * 2,
     height = (clockRadius + margin) * 2,
     hourHandLength = 2 * clockRadius / 3,
@@ -10,9 +10,9 @@ let radians = 0.0174532925,
     secondHandLength = clockRadius - 12,
     secondHandBalance = 30,
     secondTickStart = clockRadius,
-    secondTickLength = -10,
+    secondTickLength = -5,
     hourTickStart = clockRadius,
-    hourTickLength = -18,
+    hourTickLength = -10,
     secondLabelRadius = clockRadius + 16,
     secondLabelYOffset = 5,
     hourLabelRadius = clockRadius - 40,
@@ -42,21 +42,15 @@ const handData = [
         value: 0,
         length: -minuteHandLength,
         scale: minuteScale
-    },
-    // {
-    //     type: 'second',
-    //     value: 0,
-    //     length: -secondHandLength,
-    //     scale: secondScale,
-    //     balance: secondHandBalance
-    // }
+    }
 ];
 
 function updateData() {
     console.log(time);
     var t = new Date(time * 1000);
-    handData[0].value = (t.getHours() % 12) + t.getMinutes() / 60;
+    handData[0].value = (t.getHours() % 12 - 4) + t.getMinutes() / 60;
     handData[1].value = t.getMinutes();
+    console.log('h', handData[0]);
     // handData[2].value = t.getSeconds();
 }
 
@@ -168,9 +162,7 @@ function moveHands() {
             return 'rotate(' + d.scale(d.value) + ')';
         });
 }
-function pauseClock() {
 
-}
 
 
 // drawClock();
@@ -186,5 +178,5 @@ document.addEventListener("DOMContentLoaded", ()=> {
     setInterval(function () {
         updateData();
         moveHands();
-    }, 1000);
+    }, 100);
 });

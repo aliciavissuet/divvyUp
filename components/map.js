@@ -53,42 +53,42 @@ const styles = {
         },
 
 
-        { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+        { elementType: 'geometry', stylers: [{ color: '#0f0f0f' }] },
         { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
         { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
 
         {
             featureType: 'road',
             elementType: 'geometry',
-            stylers: [{ color: '#38414e' }]
+            stylers: [{ color: '#040404' }]
         },
         {
             featureType: 'road',
             elementType: 'geometry.stroke',
-            stylers: [{ color: '#212a37' }]
+            stylers: [{ color: '#32373d' }, {weight: '0.6px'}]
         },
 
         {
             featureType: 'road.highway',
             elementType: 'geometry',
-            stylers: [{ color: '#746855' }]
+            stylers: [{ color: '#040404' }, {lightness: '0'}]
         },
         {
             featureType: 'road.highway',
             elementType: 'geometry.stroke',
-            stylers: [{ color: '#1f2835' }]
+            stylers: [{ color: '#040404' }]
         },
 
         {
             featureType: 'transit',
             elementType: 'geometry',
-            stylers: [{ color: '#2f3948' }]
+            stylers: [{ visibility: 'off' }]
         },
 
         {
             featureType: 'water',
             elementType: 'geometry',
-            stylers: [{ color: '#17263c' }]
+            stylers: [{ color: '#32373d' }]
         },
 
     ],

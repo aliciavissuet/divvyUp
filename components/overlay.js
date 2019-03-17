@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
-export var time = 1000;
-export var speed = 10;
+export var time = 24000;
+export var speed = 100;
 export var prevSpeed = null;
 
 
@@ -64,7 +64,7 @@ class MapOverlay extends parent {
     }
     setTime(value) {
         time = parseInt(value);
-        console.log('tv', time, speed)
+        console.log('tv', time, speed);
     }
 
     onAdd() {
@@ -77,7 +77,7 @@ class MapOverlay extends parent {
         div.style.borderStyle = 'none';
         div.style.borderWidth = '0px';
         div.style.position = 'absolute';
-        div.style.backgroundColor = 'navy';
+        // div.style.backgroundColor = 'gray';
         this.div_ = div;
         const panes = this.getPanes();
         panes.overlayLayer.appendChild(div);
@@ -164,7 +164,9 @@ class MapOverlay extends parent {
             
         function transform(d) {
             //console.log('transform', d)
-            const style = (d.value.gender === 'Male') ? 'blueviolet' : 'cyan';
+            const style = (d.value.gender === 'Male') ? '#2e60cc' : '#b3cbe5';
+            
+            
             const { display, lat, lon} =  position(d, time);
   
             if (!display || !lat || !lon) {
@@ -182,6 +184,7 @@ class MapOverlay extends parent {
                 .style('display', 'block')
                 .style('z-index', 10000000000)
                 .style('background', style)
+                // .style('box-shadow', `2px 1px 0.5px 0.25px ${style}`)
                 // .append('text', this.value.trip_duration);
                 // .style('')
 

@@ -1,7 +1,8 @@
-import {time} from './overlay';
+import {time, speed} from './overlay';
 import * as d3 from 'd3';
 
 let slider = null;
+let speedSlider = null;
 let t = time;
 function displayTime() {
     // let t = getTime();
@@ -35,9 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log('listening to time');
     // drawClock();
     slider = document.querySelector('#time');
+    speedSlider = document.querySelector('#speed');
+    speedSlider.value = speed;
     setInterval(function () {
         getTime(); 
         digitalTime();
         inputTime();
-    }, 1000);
+    }, 100);
 });
