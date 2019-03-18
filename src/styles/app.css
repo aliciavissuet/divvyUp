@@ -261,6 +261,7 @@ input[type=range]::-webkit-slider-thumb {
 #genderdisplay {
   display: flex;
   flex-direction: column;
+  width: 230px;
 }
 #fem {
   /* margin: 10px; */
@@ -286,6 +287,7 @@ input[type=range]::-webkit-slider-thumb {
 #genderlabels {
   display: flex;
   flex-direction: row;
+  width: 120%;
   
 }
 .male-span {
@@ -293,4 +295,43 @@ input[type=range]::-webkit-slider-thumb {
 }
 .female-span {
   margin-right: 20%;
+}
+.timebar {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  color: white;
+  position: absolute;
+  left: 7%;
+  top:15%;
+
+}
+#dtdisplay {
+  display: flex;
+  flex-direction: column;
+  width: 230px;
+  margin-top: 20px;
+}
+#going {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin: 0px;
+  cursor: pointer;
+  height:20px;
+}
+#leaving {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin: 0px;
+  cursor: pointer;
+  height: 20px;
+  text-align: right;
+}
+#genderlabelsspan {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
 }

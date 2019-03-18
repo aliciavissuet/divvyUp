@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
-export var time = 20000;
+// export var time = 20000;
 export var speed = 100;
 export var prevSpeed = null;
 var female = false;
@@ -9,6 +9,8 @@ var goingDT = false;
 var leavingDT = false;
 const c = console.log;
 const velocity = .8
+const slider = document.querySelector('#time');
+
 
 class MapOverlay extends parent {
     constructor(bounds, image, map, data, directionsService) {
@@ -39,7 +41,9 @@ class MapOverlay extends parent {
         document.getElementById('pause').addEventListener('click', () => this.pause());
         document.getElementById('reset').addEventListener('click', () => this.reset());
         document.getElementById('speed').addEventListener('change', (e) => this.setSpeed(e.target.value));
-        document.getElementById('time').addEventListener('change', (e) => {this.setTime(e.target.value);});
+        // document.getElementById('time').addEventListener('dragstart', (e) => {this.pause();});
+        document.getElementById('time').addEventListener('click', (e) => {this.setTime(e.target.value);});
+        // document.getElementById('time').addEventListener('dragend', (e) => { this.pause(setTime(e.target.value));});
         document.getElementById('fem').addEventListener('mouseover', ()=> this.displayFemale());
         document.getElementById('male').addEventListener('mouseover', ()=> this.displayMale());
         document.getElementById('fem').addEventListener('mouseleave', ()=> this.displayAll());
@@ -52,19 +56,25 @@ class MapOverlay extends parent {
     
 
     increaseTime (func){
-        window.setInterval(() => {
+        return window.setInterval(() => {
             time += speed;
+            // slider.value = time;
+            // console.log(slider.value);
             func();
         }, 100); 
        
     }
 
     pause() {
+        window.clearInterval(this.increaseTime);
+        window.clearInterval(this.onAdd);
+        // this.onRemove();
         console.log('pause');
         prevSpeed = speed;
         speed=0;
     }
     play(){
+        console.log(prevSpeed);
         speed = prevSpeed;
     }
     reset(){
@@ -77,8 +87,15 @@ class MapOverlay extends parent {
         speed = parseInt(value);
     }
     setTime(value) {
+        // console.log(clearInterval);
+        // window.clearInterval(this.increaseTime);
+        this.pause();
+        prevSpeed = 100;
         time = parseInt(value);
-        console.log('tv', time, speed);
+        slider.value = time;
+        this.play();
+        // this.play();
+        // console.log('tv', time, speed);
     }
 
 

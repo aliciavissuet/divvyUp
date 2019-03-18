@@ -1,6 +1,6 @@
 import Overlay from './overlay';
 import * as d3 from 'd3';
-import {time} from './overlay';
+// import {time} from './overlay';
 console.log(time, 'map');
 
 

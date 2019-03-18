@@ -1,4 +1,4 @@
-import {time, speed} from './overlay';
+// import {time, speed} from './overlay';
 import * as d3 from 'd3';
 
 let slider = null;
@@ -14,17 +14,27 @@ function displayTime() {
     if (seconds < 10) { seconds = "0" + seconds; }
     return hours + ':' + minutes + ':' + seconds;
 }
+slider = document.querySelector('#time');
+
+// document.getElementById('time').addEventListener('click', (e) => { return inputTime(e.target.value); });
 
 function digitalTime() {
     d3.select('#digitaltime')
     
     .text(displayTime());
 }
-function inputTime() {
-    slider.value = time;
-}
 function getTime() {
     t = time;
+}
+function inputTime(val) {
+    console.log('here');
+    // getTime();
+    slider.value = parseInt(val);
+    time = parseInt(val);
+}
+function updateTime() {
+    // getTime();
+    slider.value = t;
 }
 document.addEventListener("DOMContentLoaded", () => {
     console.log('listening to time');
@@ -34,6 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(function () {
         getTime(); 
         digitalTime();
-        inputTime();
+        updateTime();
     }, 100);
 });

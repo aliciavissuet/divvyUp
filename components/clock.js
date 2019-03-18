@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import {time} from './overlay';
+// import {time} from './overlay';
 let radians = 0.0174532925,
     clockRadius = 40,
     margin = 20,
