@@ -3,10 +3,8 @@ body {
     padding:10px;
 }
 .body {
-  /* background: #282c34; */
-  /* background: #38414e */
   background: white;
-  /* background: #08605F */
+
 }
 .description {
   font-family: 'Montserrat', sans-serif;
@@ -25,13 +23,11 @@ body {
   
 }
 .title {
-  /* position: absolute; */
-  /* top:0; */
+
   text-align: center;
   width:100%;
   font-family: 'Monoton', cursive;
   font-size: 40px;
-  /* color: white; */
   color: #2e60cc;
   margin-top: 10px;
   margin-bottom: 0px;
@@ -53,24 +49,18 @@ body {
   color: #2e60cc;
   outline: none
 }
-/* svg {
-    fill: pink;
-    height: 20px;
-} */
+
 .marker {
-    /* color: pink; */
     background: azure;
     height: 7px;
     width:7px;
     border-radius: 50%;
-    /* box-shadow: 2px 1px 0.5px 0.25px #48BEFF; */
+    
     opacity: 0.6;
-    /* box-shadow: 120px 80px 40px 20px #0ff; */
+    
     
 }
-/* circle {
-  color: yellow;
-} */
+
 #map {
     height: 70%;
     width: 70%;
@@ -84,7 +74,7 @@ body {
 }
 
 #speed {
-  /* position: absolute; */
+  
   right: 100px;
   top: 50px;
   margin-bottom: 2px;
@@ -118,19 +108,14 @@ span {
   font-weight: 100;
   margin-bottom: 5px;
 }
-/* svg{
-	stroke: #000;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-} */
+
 
 #clock {
-  /* height: 300px; */
-  /* width: 300px; */
+
   position: absolute;
   top: 15%;
   right: 29%;
-  /* background: transparent; */
-  /* border: 1px solid yellow; */
+
 }
 #rim {
   fill: none;

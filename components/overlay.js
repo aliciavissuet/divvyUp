@@ -11,26 +11,17 @@ const c = console.log;
 const velocity = .8
 const slider = document.querySelector('#time');
 
-
+//some skeleton code taken from javascript google maps api
 class MapOverlay extends parent {
     constructor(bounds, image, map, data, directionsService) {
         super(...arguments);
         this.data = data;
         this.bounds_ = bounds;
-        // this.image_ = image;
+        
         this.map_ = map;
         this.directionsService = directionsService;
         this.div_ = null;
 
-       
-        // this.data.forEach(d => {
-        //     try {
-        //         d.value.stepsJson = JSON.parse(d.value.stepsJson);
-        //     } catch(e) {
-
-        //     }
-        // });
-        // this.time = 32000;
         this.setMap(map);
         this.increaseTime = this.increaseTime.bind(this);
         this.draw = this.draw.bind(this);
@@ -58,8 +49,7 @@ class MapOverlay extends parent {
     increaseTime (func){
         return window.setInterval(() => {
             time += speed;
-            // slider.value = time;
-            // console.log(slider.value);
+            
             func();
         }, 100); 
        
@@ -83,19 +73,17 @@ class MapOverlay extends parent {
         this.increaseTime(this.draw);
     }
     setSpeed(value) {
-        // console.log(parseInt(value));
+        
         speed = parseInt(value);
     }
     setTime(value) {
-        // console.log(clearInterval);
-        // window.clearInterval(this.increaseTime);
+     
         this.pause();
         prevSpeed = 100;
         time = parseInt(value);
         slider.value = time;
         this.play();
-        // this.play();
-        // console.log('tv', time, speed);
+       
     }
 
 
@@ -140,17 +128,8 @@ class MapOverlay extends parent {
             .enter().append("svg")
             .each(transform)
             .attr("class", "marker")
-            .style('position', 'absolute')
+            .style('position', 'absolute');
 
-
-
-        // Add a label.
-        // marker.append("text")
-        //     .attr("x", padding + 7)
-        //     .attr("y", padding)
-        //     .attr('z-index', "10000000000000")
-        //     .append('text')
-            
         function transform(d) {
             const style = (d.value.gender === 'Male') ? '#2e60cc' : '#b3cbe5';
             const { display, lat, lon} =  position(d, time);
@@ -170,10 +149,8 @@ class MapOverlay extends parent {
                 .style("top", (d.y - padding) + "px")
                 .style('display', 'block')
                 .style('z-index', 10000000000)
-                .style('background', style)
-                // .style('box-shadow', `2px 1px 0.5px 0.25px ${style}`)
-                // .append('text', this.value.trip_duration);
-                // .style('')
+                .style('background', style);
+               
 
         }
 
@@ -181,10 +158,7 @@ class MapOverlay extends parent {
             const p = parseFloat;
             const startTime = p(d.value.startTimeSeconds);
             const stopTime = p(d.value.startTimeSeconds) + p(d.value.distanceCovered)*speed;
-            // const timeDelta = p(d.value.timeDelta);
-
-            // genderCondition = d.value.gender === 'male' || !females
-
+         
             if ( startTime > currTime || stopTime < currTime ) {
 
                 return {
@@ -197,7 +171,7 @@ class MapOverlay extends parent {
             try{
                  pos = current_location(JSON.parse(d.value.stepsJson), currTime-startTime);
             } catch(e) {
-                // console.log(e);
+                
                 pos = {
                     lat: null,
                     lon: null,
@@ -267,12 +241,12 @@ const current_location = (steps, time) => {
 };
 
 const endDT = (d) => {
-    // c(d.value.latitude_end < 41.889034, d.value.latitude_end)
+    /
     return ((41.863426 < parseFloat(d.value.latitude_end) && parseFloat(d.value.latitude_end) < 41.889034 && 
         - 87.604406 > parseFloat(d.value.longitude_end) && parseFloat(d.value.longitude_end)> -87.637359));
 };
 const startDT = (d) => {
-    // c(d.value.latitude_start < 41.889034, d.value.latitude_start)
+  
     return (41.863426 < parseFloat(d.value.latitude_start) && parseFloat(d.value.latitude_start )< 41.889034 
         && - 87.604406 > parseFloat(d.value.longitude_start) && parseFloat(d.value.longitude_start) > -87.637359);
 };

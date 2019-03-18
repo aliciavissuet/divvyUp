@@ -16,7 +16,6 @@ function displayTime() {
 }
 slider = document.querySelector('#time');
 
-// document.getElementById('time').addEventListener('click', (e) => { return inputTime(e.target.value); });
 
 function digitalTime() {
     d3.select('#digitaltime')
@@ -27,13 +26,12 @@ function getTime() {
     t = time;
 }
 function inputTime(val) {
-    console.log('here');
-    // getTime();
+  
     slider.value = parseInt(val);
     time = parseInt(val);
 }
 function updateTime() {
-    // getTime();
+ 
     slider.value = t;
 }
 document.addEventListener("DOMContentLoaded", () => {

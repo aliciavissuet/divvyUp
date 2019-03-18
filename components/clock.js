@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-// import {time} from './overlay';
+//some skeleton code taken from http://bl.ocks.org/tomgp/6475678
 let radians = 0.0174532925,
     clockRadius = 40,
     margin = 20,
@@ -7,16 +7,11 @@ let radians = 0.0174532925,
     height = (clockRadius + margin) * 2,
     hourHandLength = 2 * clockRadius / 3,
     minuteHandLength = clockRadius,
-    secondHandLength = clockRadius - 12,
-    secondHandBalance = 30,
     secondTickStart = clockRadius,
     secondTickLength = -5,
     hourTickStart = clockRadius,
-    hourTickLength = -10,
-    secondLabelRadius = clockRadius + 16,
-    secondLabelYOffset = 5,
-    hourLabelRadius = clockRadius - 40,
-    hourLabelYOffset = 7;
+    hourTickLength = -10;
+ 
 
 
 const hourScale = d3.scaleLinear()
@@ -46,27 +41,25 @@ const handData = [
 ];
 
 function updateData() {
-    // console.log(time);
+   
     var t = new Date(time * 1000);
     handData[0].value = (t.getHours() % 12 - 4) + t.getMinutes() / 60;
     handData[1].value = t.getMinutes();
-    // console.log('h', handData[0]);
-    // handData[2].value = t.getSeconds();
+    
 }
 
 function drawClock() {
-     //create all the clock elements
-    updateData();	//draw them in the correct starting position
+ 
+    updateData();	
     const svg = d3.select("#clock").append("svg")
         .attr("width", width)
         .attr("height", height)
-        // .attr('background-color', 'blue');
-
+        
     const face = svg.append('g')
         .attr('id', 'clock-face')
         .attr('transform', 'translate(' + (clockRadius + margin) + ',' + (clockRadius + margin) + ')');
 
-    // add marks for seconds
+    
     face.selectAll('.second-tick')
         .data(d3.range(0, 60)).enter()
         .append('line')
@@ -78,25 +71,7 @@ function drawClock() {
         .attr('transform', function (d) {
             return 'rotate(' + secondScale(d) + ')';
         });
-    //and labels
-
-    // face.selectAll('.second-label')
-    //     .data(d3.range(5, 61, 5))
-    //     .enter()
-    //     .append('text')
-    //     .attr('class', 'second-label')
-    //     .attr('text-anchor', 'middle')
-    //     .attr('x', function (d) {
-    //         return secondLabelRadius * Math.sin(secondScale(d) * radians);
-    //     })
-    //     .attr('y', function (d) {
-    //         return -secondLabelRadius * Math.cos(secondScale(d) * radians) + secondLabelYOffset;
-    //     })
-    //     .text(function (d) {
-    //         return d;
-    //     });
-
-    //... and hours
+   
     face.selectAll('.hour-tick')
         .data(d3.range(0, 12)).enter()
         .append('line')
@@ -108,23 +83,6 @@ function drawClock() {
         .attr('transform', function (d) {
             return 'rotate(' + hourScale(d) + ')';
         });
-
-    // face.selectAll('.hour-label')
-    //     .data(d3.range(3, 13, 3))
-    //     .enter()
-    //     .append('text')
-    //     .attr('class', 'hour-label')
-    //     .attr('text-anchor', 'middle')
-    //     .attr('x', function (d) {
-    //         return hourLabelRadius * Math.sin(hourScale(d) * radians);
-    //     })
-    //     .attr('y', function (d) {
-    //         return -hourLabelRadius * Math.cos(hourScale(d) * radians) + hourLabelYOffset;
-    //     })
-    //     .text(function (d) {
-    //         return d;
-    //     });
-
 
     var hands = face.append('g').attr('id', 'clock-hands');
 
@@ -163,14 +121,6 @@ function moveHands() {
         });
 }
 
-
-
-// drawClock();
-
-// setInterval(function () {
-//     updateData();
-//     moveHands();
-// }, 1000);
 
 document.addEventListener("DOMContentLoaded", ()=> {
     console.log('listening');
