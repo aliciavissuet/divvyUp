@@ -18,7 +18,7 @@ const initMap = () => {
 
     const bounds = map.getBounds();
     console.log(bounds);
-    const data = d3.csv('../DivvyDataWithSteps.csv').then((data) =>  new Overlay(bounds, null, map, data, directionsService));
+    const data = d3.csv('./DivvyDataWithSteps.csv').then((data) =>  new Overlay(bounds, null, map, data, directionsService));
     
     
     // const overlay = new Overlay(bounds, null, map, data);
