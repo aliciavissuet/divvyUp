@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="src/styles/app.css" />
+    <link href="https://fonts.googleapis.com/css?family=Monoton|Montserrat" rel="stylesheet">
+    <script type='text/javascript'>
+        var time = 10000; 
+    </script>
+</head>
+
+<body class='body'>
+    <div class='header'>
+        <h1 class='title'>DivvyUP!</h1>
+    </div>
+       
+        <div id="map">
+        </div>
+        <div id='sidebar'>
+            <div class='controls'>
+                <h3 id='control'>Controls</h3>
+                <div class='btns'>
+                    <button class='btn' id='play'>Play</button>
+                    <button class='btn' id='pause'>Pause</button>
+                    <button class='btn' id='reset'>Reset</button>
+                </div>
+                <input type="range" min=0 max=200 id='speed' value=10 step=1>
+                <span>Speed</span>
+            </div>
+            <div class='filters'>
+                <h3 id='control'>Filters (hover for effects)</h3>
+                <div id='genderdisplay' class='genderdisplay' style='display: flex;'>
+                    <div id='genderlabelsspan'>
+                        <span class='female-span'>Female</span>
+                        <span class='male-span'>Male</span>
+                    </div>
+                    <div id='genderlabels'>
+                        <div id='fem'></div>
+                        <div id='male'></div>
+                    </div>
+            
+                </div>
+                <div id='dtdisplay' class='genderdisplay'>
+                    <div id='genderlabelsspan'>
+                        <span class='female-span'>Going</span>
+                        <span class='male-span'>Leaving</span>
+                    </div>
+                    <div id='genderlabels'>
+                        <div id='going'></div>
+                        <div id='leaving'></div>
+                    </div>
+                </div>
+            </div>
+            <div class='descriptiondiv'>
+                <p class='description'>
+                    Divvy is Chicago's bike sharing program. The data for Divvy's ridership is publicly available.
+                    I took data for Divvy Bike trips from May 17th, 2016, and created an animation using the D3 library and Google
+                    Maps
+                    API.
+                    
+                    For visualization purposes, I assumed that every trip followed the recommended cycling directions from Google
+                    Maps.
+                </p>
+            </div>
+        </div>
+        
+        
+        
+        
+        <input type="range" min=0 max=84700 id='time' value=1 step=1>
+        <p class='timebar'>Pause time and double click on timebar to jump to a different part of the day!</p>
+        <div id='clock'></div>
+        <h3 id='digitaltime'></h3>
+    
+    <div id='map-overlay'></div>
+    
+
+        
+        <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaSyGmkL0i8AqF3kYN-nUrabZ-QGwrzqc" type="text/javascript" ></script>
+       
+</body>
+
+</html>
