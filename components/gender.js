@@ -8,7 +8,7 @@ const getTime = () => {
     t = time;
 };
 
-const data = d3.csv('../minutesData.csv');
+const data = d3.csv('./minutesData.csv');
 
 
 const drawGender = (data) => {
