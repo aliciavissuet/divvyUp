@@ -241,7 +241,7 @@ const current_location = (steps, time) => {
 };
 
 const endDT = (d) => {
-    /
+    
     return ((41.863426 < parseFloat(d.value.latitude_end) && parseFloat(d.value.latitude_end) < 41.889034 && 
         - 87.604406 > parseFloat(d.value.longitude_end) && parseFloat(d.value.longitude_end)> -87.637359));
 };
