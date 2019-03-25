@@ -1,0 +1,2 @@
+# DivvyUp
+Divvy, Chicago's bike sharing program, has publicly available data representing all of the bike trips taken using their bicycles on a daily basis. DivvyUp! is a data visualization project presents all bike trips taken over the course of a single day, May 17th, 2016. While Divvy provides start and end points for each trip, I visualized each trip taking place on actual roads by utilizing Google Directions API and assuming that each bike trip follows the recommended route.
