@@ -62,7 +62,7 @@ body {
     margin: 10px;
 }
 .btn {
-      background: transparent;
+      /* background: transparent; */
     color: #2e60cc;
     outline: none;
     padding: 10px;
@@ -434,4 +434,7 @@ input[type=range]::-webkit-slider-thumb {
     /* margin: 20px; */
     margin-left: 20px;
     margin-top: 20px;
+}
+.selected{
+  background:rgb(72, 195, 231);
 }
