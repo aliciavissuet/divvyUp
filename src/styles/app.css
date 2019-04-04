@@ -11,6 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  margin:0;
 
 }
 .description {
@@ -86,7 +87,7 @@ body {
   display: flex;
   flex-direction: row;
   /* height: 100%; */
-  padding-left: 20px;
+  /* padding-left: 20px; */
   padding-right: 20px;
 }
 
@@ -434,6 +435,7 @@ input[type=range]::-webkit-slider-thumb {
     /* margin: 20px; */
     margin-left: 20px;
     margin-top: 20px;
+    margin-right: 20px;
 }
 .selected{
   background:rgb(72, 195, 231);
