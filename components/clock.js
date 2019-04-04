@@ -123,7 +123,7 @@ function moveHands() {
 
 
 document.addEventListener("DOMContentLoaded", ()=> {
-    console.log('listening');
+    // console.log('listening');
     drawClock();
     setInterval(function () {
         updateData();

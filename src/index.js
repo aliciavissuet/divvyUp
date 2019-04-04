@@ -1,4 +1,4 @@
-console.log("working ");
+// console.log("working ");
 
 import map from '../components/map.js';
 import overlay from '../components/overlay';

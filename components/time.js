@@ -35,7 +35,7 @@ function updateTime() {
     slider.value = t;
 }
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('listening to time');
+    // console.log('listening to time');
     slider = document.querySelector('#time');
     speedSlider = document.querySelector('#speed');
     speedSlider.value = speed;

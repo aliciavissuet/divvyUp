@@ -13,7 +13,7 @@ const slider = document.querySelector('#time');
 var pause = false;
 
 function addClass(selector, myClass) {
-    console.log('here');
+    // console.log('here');
     let elements;
 
     // get all elements that match our selector
@@ -84,7 +84,7 @@ class MapOverlay extends parent {
         window.clearInterval(this.increaseTime);
         window.clearInterval(this.onAdd);
         // this.onRemove();
-        console.log('pause');
+        // console.log('pause');
         prevSpeed = speed;
         speed=0;
         pause = true;
@@ -92,7 +92,7 @@ class MapOverlay extends parent {
         removeClass('#play', 'selected');
     }
     play(){
-        console.log(prevSpeed);
+        // console.log(prevSpeed);
         speed = prevSpeed;
         pause = true;
         addClass('#play', 'selected');

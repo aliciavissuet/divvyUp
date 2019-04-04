@@ -1,10 +1,10 @@
 import Overlay from './overlay';
 import * as d3 from 'd3';
 // import {time} from './overlay';
-console.log(time, 'map');
+// console.log(time, 'map');
 
 
-console.log('alicia');
+// console.log('alicia');
 const initMap = () => {
     let map;
     let directionsService;
@@ -17,7 +17,7 @@ const initMap = () => {
     directionsService = new google.maps.DirectionsService;
 
     const bounds = map.getBounds();
-    console.log(bounds);
+    // console.log(bounds);
     const data = d3.csv('./DivvyDataWithSteps.csv').then((data) =>  new Overlay(bounds, null, map, data, directionsService));
     
     
