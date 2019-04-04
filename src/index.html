@@ -14,10 +14,38 @@
 <body class='body'>
     <div class='header'>
         <h1 class='title'>DivvyUP!</h1>
-    </div>
-       
-        <div id="map">
+        <div class='descriptiondiv'>
+            <p class='description'>
+                Divvy is Chicago's bike sharing program. The data for Divvy's ridership is publicly available.
+                I took data for Divvy Bike trips from May 17th, 2016, and created an animation using the D3 library and
+                Google
+                Maps
+                API.
+        
+                For visualization purposes, I assumed that every trip followed the recommended cycling directions from
+                Google
+                Maps.
+            </p>
         </div>
+    </div>
+       <div class='body-container'>
+           <div class='map-container'>
+            <div class='time-progress'>
+                <input type="range" min=0 max=84700 id='time' value=1 step=1>
+                <p class='timebar'>Pause time and double click on timebar to jump to a different part of the day!</p>
+
+            </div>
+            <div class='display-time'>
+                <div id='clock'></div>
+                <h3 id='digitaltime'></h3>
+            </div>
+           
+            <div id="map">
+            </div>
+           </div>
+
+          
+       
         <div id='sidebar'>
             <div class='controls'>
                 <h3 id='control'>Controls</h3>
@@ -30,8 +58,10 @@
                 <span>Speed</span>
             </div>
             <div class='filters'>
-                <h3 id='control'>Filters (hover for effects)</h3>
+                <h3 id='control'>Filters</h3>
+                <span class='hover-effects'>Hover over bar graphs for effects</span>
                 <div id='genderdisplay' class='genderdisplay' style='display: flex;'>
+                    <span class='hover-effects-2'>Filter riders by gender (no data provided for non-binary)</span>
                     <div id='genderlabelsspan'>
                         <span class='female-span'>Female</span>
                         <span class='male-span'>Male</span>
@@ -40,9 +70,11 @@
                         <div id='fem'></div>
                         <div id='male'></div>
                     </div>
-            
+        
                 </div>
                 <div id='dtdisplay' class='genderdisplay'>
+                    <span class='hover-effects-2'>Filter rides by destination (going or leaving downtown)</span>
+
                     <div id='genderlabelsspan'>
                         <span class='female-span'>Going</span>
                         <span class='male-span'>Leaving</span>
@@ -53,26 +85,28 @@
                     </div>
                 </div>
             </div>
-            <div class='descriptiondiv'>
+            <!-- <div class='descriptiondiv'>
                 <p class='description'>
                     Divvy is Chicago's bike sharing program. The data for Divvy's ridership is publicly available.
-                    I took data for Divvy Bike trips from May 17th, 2016, and created an animation using the D3 library and Google
+                    I took data for Divvy Bike trips from May 17th, 2016, and created an animation using the D3 library and
+                    Google
                     Maps
                     API.
-                    
-                    For visualization purposes, I assumed that every trip followed the recommended cycling directions from Google
+        
+                    For visualization purposes, I assumed that every trip followed the recommended cycling directions from
+                    Google
                     Maps.
                 </p>
-            </div>
+            </div> -->
         </div>
+       </div>
+        
+       
         
         
         
         
-        <input type="range" min=0 max=84700 id='time' value=1 step=1>
-        <p class='timebar'>Pause time and double click on timebar to jump to a different part of the day!</p>
-        <div id='clock'></div>
-        <h3 id='digitaltime'></h3>
+       
     
     <div id='map-overlay'></div>
     

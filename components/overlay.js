@@ -10,6 +10,29 @@ var leavingDT = false;
 const c = console.log;
 const velocity = .8
 const slider = document.querySelector('#time');
+var pause = false;
+
+function addClass(selector, myClass) {
+
+    // get all elements that match our selector
+    elements = document.querySelectorAll(selector);
+
+    // add class to all chosen elements
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].classList.add(myClass);
+    }
+}
+
+function removeClass(selector, myClass) {
+
+    // get all elements that match our selector
+    elements = document.querySelectorAll(selector);
+
+    // remove class from all chosen elements
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].classList.remove(myClass);
+    }
+}
 
 //some skeleton code taken from javascript google maps api
 class MapOverlay extends parent {
@@ -62,10 +85,12 @@ class MapOverlay extends parent {
         console.log('pause');
         prevSpeed = speed;
         speed=0;
+        pause = true;
     }
     play(){
         console.log(prevSpeed);
         speed = prevSpeed;
+        pause = true;
     }
     reset(){
         time = 0;
