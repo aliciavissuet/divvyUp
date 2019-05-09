@@ -48,6 +48,7 @@ class MapOverlay extends parent {
         this.setMap(map);
         this.increaseTime = this.increaseTime.bind(this);
         this.draw = this.draw.bind(this);
+        
         window.reset = this.reset;
         window.pause = this.pause;
         window.play = this.play;
