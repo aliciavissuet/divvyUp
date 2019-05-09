@@ -1,19 +1,17 @@
 import * as d3 from 'd3';
 const parent = google.maps.OverlayView;
-// export var time = 20000;
-export var speed = 100;
+export var speed = 10;
 export var prevSpeed = null;
 var female = false;
 var male = false;
 var goingDT = false;
 var leavingDT = false;
 const c = console.log;
-const velocity = .8
+const velocity = 6
 const slider = document.querySelector('#time');
 var pause = false;
 
 function addClass(selector, myClass) {
-    // console.log('here');
     let elements;
 
     // get all elements that match our selector
@@ -188,21 +186,22 @@ class MapOverlay extends parent {
         function position(d, currTime) {
             const p = parseFloat;
             const startTime = p(d.value.startTimeSeconds);
-            const stopTime = p(d.value.startTimeSeconds) + p(d.value.distanceCovered)*speed;
-         
-            if ( startTime > currTime || stopTime < currTime ) {
+            const stopTime = p(d.value.startTimeSeconds) + p(d.value.total_distance)/velocity;
+            
+            if (!p(d.value.total_distance) || !(startTime < currTime && currTime < stopTime) ) {
 
                 return {
                     lat: null,
                     lon: null,
                     display:false,
                 };
-            } 
+            }
+            
             let pos;
             try{
-                 pos = current_location(JSON.parse(d.value.stepsJson), currTime-startTime);
+                pos = current_location(JSON.parse(d.value.stepsJson), currTime - startTime, d.value.total_distance);
             } catch(e) {
-                
+                // console.log(e)
                 pos = {
                     lat: null,
                     lon: null,
@@ -239,20 +238,24 @@ class MapOverlay extends parent {
 export default MapOverlay;
 
 
-const current_location = (steps, time) => {
+const current_location = (steps, time, td) => {
     const p = parseFloat;
     let i = 0;
     let distanceCovered = 0;
-    while(true){
-        distanceCovered += steps[i].distance;
-        if (time / velocity < distanceCovered){
-            break;
-        }
-        i++;
+    
+    while (distanceCovered <= time*velocity) {
+        
+        distanceCovered += steps[i].distance
+        
+        
+        i++
     }
+    i--
 
-    const timeInInterval = distanceCovered * velocity - steps[i].distance * velocity;
-    const t = time - timeInInterval;
+
+    const timeTillInterval = (distanceCovered - steps[i].distance )/ velocity;
+
+    const t = time - timeTillInterval;
 
     const startLat = p(steps[i].start_location.lat);
     const startLon = p(steps[i].start_location.lng);
@@ -260,9 +263,8 @@ const current_location = (steps, time) => {
     const endLat = p(steps[i].end_location.lat)
     const endLon = p(steps[i].end_location.lng)
 
-    const currLat = ((t) * (endLat - startLat) / (steps[i].distance * velocity )+ startLat)
-    const currLon = ((t) * (endLon - startLon) / (steps[i].distance * velocity) + startLon)
-
+    const currLat = ((t) * (endLat - startLat) / (steps[i].distance / velocity )+ startLat)
+    const currLon = ((t) * (endLon - startLon) / (steps[i].distance / velocity) + startLon)
     return {
         lat: Number(currLat),
         lon: Number(currLon),
